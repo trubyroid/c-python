@@ -16,6 +16,12 @@ static PyObject* _div(PyObject* self, PyObject* args)
 
     if (!PyArg_ParseTuple(args, "ii", &a, &b))
         return NULL;
+
+    if (b == 0) {
+        PyErr_SetString(PyExc_ZeroDivisionError, "Cannot divide a zero");
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
  
     return Py_BuildValue("i", Cdiv(a, b));
 }
